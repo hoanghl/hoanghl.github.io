@@ -1,0 +1,100 @@
+{% set cdn_version = now() | date(format="%d%m%Y%H%M%S") %}
+<!DOCTYPE html>
+<html lang="en">
+<head
+  data-base-url="{{config.base_url | safe }}"
+  data-giscus-repo="{{config.extra.giscus.data_repo | safe}}"
+  data-giscus-repo-id="{{config.extra.giscus.data_repo_id | safe}}"
+  data-giscus-category="{{config.extra.giscus.data_category | safe}}"
+  data-giscus-category-id="{{config.extra.giscus.data_category_id | safe}}"
+  data-giscus-mapping="{{config.extra.giscus.data_mapping | safe}}"
+  data-giscus-strict="{{config.extra.giscus.data_strict | safe}}"
+  data-giscus-reactions-enabled="{{config.extra.giscus.data_reactions_enabled | safe}}"
+  data-giscus-emit-metadata="{{config.extra.giscus.data_emit_metadata | safe}}"
+  data-giscus-input-position="{{config.extra.giscus.data_input_position | safe}}"
+  data-giscus-lang="{{config.extra.giscus.data_lang | safe}}"
+  data-giscus-crossorigin="{{config.extra.giscus.crossorigin | safe}}"
+  data-giscus-nonce="{{config.extra.nonce | safe}}"
+  data-giscus-src="{{config.extra.giscus.src | safe}}"
+  data-build-search-index="{{config.build_search_index | safe}}"
+  data-comments-enabled="{%- if page.extra.show_comments -%}true{%- else -%}false{%- endif -%}">
+  <meta charset="utf-8">
+  <title>
+    {%- if page.title -%} {{ page.title }}
+    {%- elif section.title -%} {{ section.title }} 
+    {%- endif -%}
+  </title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+  
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.css" integrity="sha384-o3WH+1yEhq+grOgz1BVYTZPyTlMXrDxnjN1By9/ba94JqJhva6wFm2Hb+URQX53v" crossorigin="anonymous"> -->
+  <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.js" integrity="sha384-C5yZTsgLOfuizO9kb+hrB8uSBwwvZ4yenKWU0KmWl+7bkL6Tph/KbcOa3S4zdoRE" crossorigin="anonymous"></script> -->
+  <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script> -->
+  
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+ -->
+
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"> -->
+
+  <!-- The loading of KaTeX is deferred to speed up page rendering -->
+  <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script> -->
+
+
+  {% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+    {% if config.extra.katex_enable %}
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous"> -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.css" integrity="sha384-o3WH+1yEhq+grOgz1BVYTZPyTlMXrDxnjN1By9/ba94JqJhva6wFm2Hb+URQX53v" crossorigin="anonymous">
+
+    <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script> -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.js" integrity="sha384-C5yZTsgLOfuizO9kb+hrB8uSBwwvZ4yenKWU0KmWl+7bkL6Tph/KbcOa3S4zdoRE" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/mathtex-script-type.min.js" integrity="sha384-zWYbd0NBwgTsgIdFKVprSfTh1mbMPe5Hz1X3yY4Sd1h/K1cQoUe36OGwAGz/PcDy" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    {% endif %}
+  {% endblock js %}
+
+  {% block css %}
+    <link rel="stylesheet" href="{{ get_url(path="site.css", trailing_slash=false) }}">
+    {% if config.extra.katex_enable %}
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous"> -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.css" integrity="sha384-o3WH+1yEhq+grOgz1BVYTZPyTlMXrDxnjN1By9/ba94JqJhva6wFm2Hb+URQX53v" crossorigin="anonymous">
+    {% endif %}
+  {% endblock css %}
+
+
+{% if dsc is not defined %}
+  <meta name="description" content="{{ config.extra.description }}">  
+{% else %}
+  <meta name="description" content="{{ dsc }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endif %}
+  <meta name="author" content="{{config.extra.author}}">
+  {% if page.extra.keywords is defined %}<meta name="keywords" content="{{ page.extra.keywords }}">{% endif %}
+  <link type="text/css" rel="stylesheet" href="{{config.base_url | safe }}css/grid.css?v={{ cdn_version }}">
+  <link type="text/css" rel="stylesheet" href="{{config.base_url | safe }}css/style.css?v={{ cdn_version }}">
+  <link rel="icon" type="image/png" href="{{config.base_url | safe }}images/letter.jpg">
+  <link rel="mask-icon" type="image/png" href="{{config.base_url | safe }}images/letter.jpg">
+  {% if config.extra.stats and config.mode != 'serve' %}
+  <script async src="{{config.extra.stats.script_src}}" data-website-id="{{config.extra.stats.site_id}}" nonce="{{config.extra.nonce}}"></script>
+  {% endif %}
+  <script src = "{{config.base_url | safe }}js/codecopy.js?v={{ cdn_version }}" nonce="{{config.extra.nonce}}"></script>
+  <script src="{{config.base_url | safe }}js/mermaid.min.js?v={{ cdn_version }}" nonce="{{config.extra.nonce}}"></script>
+  {%- if config.build_search_index -%}
+  <script src="{{config.base_url | safe }}elasticlunr.min.js?v={{ cdn_version }}" nonce="{{config.extra.nonce}}"></script>
+  <script src="{{config.base_url | safe }}js/search.js?v={{ cdn_version }}" nonce="{{config.extra.nonce}}"></script>
+  {%- endif -%}
+</head>
+<body>
+{% include 'header.html' %}
+<main>
+  <div class="container" id="main-container">
+        {% block content %} {% endblock %}
+  </div>
+</main>
+{% include 'footer.html' %}
+<script src = "{{config.base_url | safe }}js/colortheme.js?v={{ cdn_version }}" nonce="{{config.extra.nonce}}"></script>
+<script src = "{{config.base_url | safe }}js/init.js?v={{ cdn_version }}" nonce="{{config.extra.nonce}}"></script>
+</body>
+</html>

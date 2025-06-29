@@ -1,0 +1,79 @@
+pre {
+    background: var(--code-bg-color);
+    padding: 1.5em;
+    // margin: 1.5em;
+    code, span {
+      font-family: "CascadiaCodeNF";
+      font-size: 1rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    span .z-key span {
+      color: var(--code-kw-color);
+      font-weight: bold;
+    }
+  }
+
+  pre[data-linenos] {
+    padding: 1rem 0;
+  }
+  pre table td {
+    padding: 0;
+  }
+  pre table td:nth-of-type(1) {
+    text-align: center;
+    user-select: none;
+  }
+  pre mark {
+    display: block;
+  }
+  pre table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .z-keyword, .z-entity, .z-function, .z-option {
+    font-weight: bold;
+    color: var(--code-kw-color);
+  }
+  .z-qualified-name .z-storage {
+    color: var(--code-fg-color);
+  }
+  .z-generic-name {
+    color: var(--code-fg-color);  
+  }
+  .z-string {
+    color: var(--code-string-color);  
+  }
+  .z-comment {
+    color: var(--code-comment-color);  
+  }
+  .z-variable.z-readwrite {
+    color: var(--code-string-color);
+  }
+
+  .icon-copy {
+    mask: url('../icons/copy.svg');
+    &.clicked {
+        mask: url('../icons/copied.svg');
+    }
+}
+
+pre {
+    border-radius: .5em;
+    position: relative;
+    .copybutton {
+        outline: none;
+        padding: .4em;
+        position: absolute;
+        margin: .5em;
+        right: 0;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        &.icon-copy {    
+            mask-size: 20px;
+            mask-repeat: no-repeat;
+        }
+
+    }
+}
