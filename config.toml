@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://hoanghl.io/"
+base_url = "https://hoanghl.github.io/"
 
 minify_html = true
 
