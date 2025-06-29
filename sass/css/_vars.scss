@@ -1,0 +1,83 @@
+* {
+  --font-family: "Mulish", Halvetica, Arial, "CascadiaCodeNF";
+}
+:root {
+    --co-warning: rgba(255, 145, 0, 0.8);
+    --co-alert: rgb(255, 0, 21);
+    --co-info: rgb(0, 123, 255);
+    
+    --main-color-light: #011627;
+    --bg-color-light: #F4F9E9;
+    --hover-color-light: #FF3366;
+    --hover-bg-light: #e7ebde;
+    --code-bg-color-light: #e2e6d9;
+    --code-fg-color-light: #383a42;
+    --code-kw-color-light: #054865;
+    --code-string-color-light:#448743;
+    --code-comment-color-light:#a9a9a9; 
+
+    --main-color-dark: #EEEEEE; 
+    --bg-color-dark: #222831;
+    --hover-color-dark: #369ce4;
+    --hover-bg-dark: #393E46;
+    
+    --code-bg-color-dark: #303947;
+    --code-fg-color-dark: #dcdfe4;
+    --code-kw-color-dark: #9a8240;
+    --code-string-color-dark:#6e8e57;
+    --code-comment-color-dark:#686767;
+}
+[color-theme="light"] {
+    --main-color: var(--main-color-light);
+    --bg-color: var(--bg-color-light);
+    --hover-color: var(--hover-color-light);
+    --hover-bg: var(--hover-bg-light);
+
+    --code-bg-color: var(--code-bg-color-light);
+    --code-fg-color: var(--code-fg-color-light);
+    --code-kw-color: var(--code-kw-color-light);
+    --code-string-color: var(--code-string-color-light);
+    --code-comment-color: var(--code-comment-color-light);
+}
+
+[color-theme="dark"] {   
+    --main-color: var(--main-color-dark);
+    --bg-color: var(--bg-color-dark);
+    --hover-color: var(--hover-color-dark);
+    --hover-bg: var(--hover-bg-dark);
+    --code-bg-color: var(--code-bg-color-dark);
+    --code-fg-color: var(--code-fg-color-dark);
+    --code-kw-color: var(--code-kw-color-dark);
+    --code-string-color: var(--code-string-color-dark);
+    --code-comment-color: var(--code-comment-color-dark);
+}
+
+
+$theme-color-map: (
+  'Default': #bb5649 #f8f5ec,
+  'Mint Green': #16982B #f5f5f5,
+  'Cobalt Blue': #0047AB #f0f2f5,
+  'Hot Pink': #FF69B4 #f8f5f5,
+  'Dark Violet': #9932CC #f5f4fa
+);
+
+// TODO: allow to change that
+$main-colour: #bb5649;
+$secondary-colour: #f8f5ec;
+$body-width: 800px;
+$mobile-navbar-height: 50px !default;
+$code-colour: #c7254e;
+$code-font-family: "CascadiaCodeNF";
+$decoration-font-family: "CascadiaCodeNF";
+
+@mixin min-screen($min-width: $body-width) {
+   @media screen and (min-width: $min-width) {
+     @content;
+   }
+}
+
+@mixin max-screen($max-width: $body-width) {
+   @media screen and (max-width: $max-width) {
+     @content;
+   }
+}

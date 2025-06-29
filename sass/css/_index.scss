@@ -1,0 +1,17 @@
+#index-text {
+    font-size: 1.2em;
+    font-weight: 300;
+}
+#flexbox {
+    display: flex;
+    align-items : center;
+}
+#index-image {
+    text-align: center;
+    display: block;
+    img {
+        border-radius: 50%;
+        width: 75%;
+        height: 75%;
+    }
+}

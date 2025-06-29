@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block content %}
+<div class="row content" id="flexbox">
+  <div class="col-2"></div>
+  <div class="col-5 content" id="index-text">
+    <h1 class="center">Hoang H. Le</h1>
+    <!-- {% if page.content %}
+      <h3 class="center">{{ page.content }}</h3>
+    {% endif %} -->
+    {% if section.content %}  <h3 class="center">{{ section.content | safe }} </h3> 
+    {% endif %}
+    <div class="center">
+      <a href="{{config.extra.footer.icons.github}}" class="icon footer icon-gh"></a>
+      <a href="{{config.extra.footer.icons.linkedin}}" class="icon footer icon-linkedin"></a>
+    </div>
+  </div>
+  <div class="col-3">
+    <div id="index-image">
+      <img
+        src="{{config.base_url}}{{ config.extra.avatar_src }}"
+        alt="avatar"
+        class="avatar"
+      />
+    </div>
+  </div>
+</div>
+{% endblock %}
