@@ -33,8 +33,8 @@ Accuracy based metrics usually require non-binary outputs.
 
 Denote:
 
-- \\( y_{ui} \\): groundtruth rate by user \\( u \\) to item \\( i \\)
-- \\( y_{ui} \\): predicted rate by user \\( u \\) to item \\( i \\)
+- \\( y\_{ui} \\): groundtruth rate by user \\( u \\) to item \\( i \\)
+- \\( y\_{ui} \\): predicted rate by user \\( u \\) to item \\( i \\)
 
 $$
 MSE = \dfrac{1}{\mathcal{D}}  \sum_{(u, i) \in \mathcal{D}} \big( y_{ui} - \hat{y}_{ui} \big)^2
@@ -54,7 +54,7 @@ $$
 
 Unlike accuracy based metrics, decision support ones can work with either binary or non-binary outputs because they rely on the idea of relevance.
 
-{{ show_image(path="res/decision_support.jpeg", caption="") }}
+{{ show_image(path="res/decision_support.jpeg", caption="", width="10") }}
 
 ## 1. Precision@k
 
@@ -120,11 +120,11 @@ $$
 
 where:
 
-- \\( rel(i) = \Bbb{1}_\text{item \\( i \\) is relevant} \\)
+- \\( rel(i) = \Bbb{1}\_\text{item \\( i \\) is relevant} \\)
 
 The following flowchart describes setps to calculate nDCG@k in recommendation with implicit feedback case.
 
-{{ show_image(path="res/ndcg_flowchart.jpeg", caption="") }}
+{{ show_image(path="res/ndcg_flowchart.jpeg", caption="", width=10) }}
 
 In such case,
 
@@ -148,8 +148,8 @@ Denote:
 
 - \\( U \\): set of users within the test set
 - \\( N_u \\): no. relevant items of user \\( u \\) in test set
-- \\( rel(i) = \Bbb{1}_\text{item \\( i \\) is relevant} \\)
-- \\( \big( AP@k \big)_u \\): Average Precision at \\( k \\) of user \\( u \\)
+- \\( rel(i) = \Bbb{1}\_\text{item \\( i \\) is relevant} \\)
+- \\( \big( AP@k \big)\_u \\): Average Precision at \\( k \\) of user \\( u \\)
 
 Then, Average Precision at \\( k \\) (AP@k) is calculated is as follow:
 
