@@ -17,48 +17,76 @@ show_date = true
 keywords = "data,machine-learning,recommender-system,time-series-forecast"
 +++
 
-# 0. Abstract
+# Abstract
 
 - In short: purpose of the tool: facilitate planning the menus to meet
 - What this part covers:
-  - -
+
+  - Fundamental in business
+  - Data and problem with most important dimension: dishes
+
 - Note that: Unlike research papers which only discuss the successful approach, to me, failure and success both give valuable lessons. Therefore, failed attempts will also be described.
 
 # 1. Business and requirements
 
-- Business in overview:
-  - The company's food manager anually crafts a menu plan (called **menu plan**)
-  - When it comes to each of 20 restaurants, the restaurant manager tailors a detailed menu for each day in the next following weeks. Fig. 1 illustrates the business actor hierarchy.
-  - The main customer is undergraduate/graduate students
-  - The menu must satisfies various constraints without sacrificing the business and sustainability targets
+To begin with, the company's business centers around serving the meals with over nearly 20 restaurants across Helsinki and Espoo. The main customer is undergraduate/graduate students. Annually, before the schoolyear begins, the company's food manager crafts a menu plan (called **menu plan**). This menu plan consists of all available dishes for that schoolyear and satisfies some primary requirements related to nutrition. Fig. 4 shows an example of menu plan. The manager of each restaurant will later, based on this plan, tailor the menu for their own restaurant to fit with restaurant's facility conditions. For example, for small restaurant, the number of daily served dishes cannot exceed a certain threshold.
+
+{{ show_image(path="res/1-menu-plan.png", caption="Figure 1: Example of annual menu plan. 'G' stands for 'Gluten', 'KELA' refers to a nutrition property of a dish, which follows the authority's policy.", width=80) }}
+
+{{ show_image(path="res/1-menu-restaurant.png", caption="Figure 2: Example of a menu of a specific restaurant on July 1, 2025.", width=60) }}
+
+From the figures, it can be seen that the dish quantity per day of a restaurant may be different from menu plan. In addition, hierarchically, there are essential 2 actors in the meal business of the company, as depicted in Figure 1. Each, as mentioned above, will be responsible for a group of constraints for the final menu. However, the company want to go further with the tailored menus. Particularly, they are interested in adapting the menus with 2 important targets: **_sale_** and **_sustainability_**.
 
 {{ show_image(path="res/1-business-hierarchy.svg", caption="Fig. 1: Business actor hierarchy", width=60) }}
 
-- Functional requirements:
+So, to sum up about the constraints of the menu, we have:
 
-1.  A crafted menu must have the total sale which is closed with reality:
-    example: Every day, a restaurant serves 500 meals (or '**covers**'). By examining historical data, shows that the average cover quantity of some dishes are as follow:
+- Nutrition contrainsts (tailored by company's food manager)
+- Restaurant facility contraints (tailored by restaurant manager)
+- sale
+- sustainability,
+
+where 2 last factors are not covered in the current menu crafting procedure. And the company is dreaming about a tool being able to automate this procedure. Kaboom!
+
+Ok, let's first clear the fog with the constraints.
+
+First, the sale contraint. Roughly speaking, it requires that the crafted menu must have the total sale which is closed with reality. Imagine a scenario as follow. We are crafting the menu for the next Monday for a restaurant at Kumpula campus. The historical data shows that on Monday, that restaurant serves on average 500 meals (for anyone familiar with the restaurant business, this is also called '**covers**'). Also, according to the data, we know the sale of some dishes on Monday are as follow:
 
 - Carbonara: 200
 - Fish fingers: 250
 - Lentil lasagnette: 140
 
-Therefore, it is reasonable to make up a menu with Carbonara and Fish fingers. Note that those figures are varied from day to day.
+Therefore, it is reasonable to make up a menu with Carbonara and Fish fingers for next Monday. Note that those figures vary from day to day and therefore, a forecasting module is needed to provide the inputs for the recommendation process.
 
-2.  The crafted menu must satisfy a list of constraints:
+Secondly, the sustainability contraints. Entire world is talking about sustainable world and seeking the ways to reach that target. Finland and especially the company won't be outside this journey. In particular, there are 2 sustainable requirements for each menu:
 
-    - 2 vegan dishes/day
-    - no more than 2 fish dishes per week
-    - one dish cannot appear twice in the same week
-    - gluten requirement
-    - etc.
+1. The waste amount littered per customer shouldn't be greater than **40g**
+2. The CO2 amount theoretically littered per customer as consuming a dish shouldn't be greater than **500g**
 
-    The list of constraints may grow up to 10
+TODO: Talk something more at this
 
-3.  The crafted menu must satisfy the sustainability constraints:
+Next, the nutrition contraints. These cover various properties of the dishes such as dish type (e.g. vegan, meat, chicken), gluten, etc. Examples of nutrition-related contraints are as folow.
 
-- waste: 40
-- CO2
+- 2 vegan dishes/day
+- no more than 2 fish dishes per week
+- one dish cannot appear twice in the same week
+- gluten requirement
+- etc.
+
+This list, in reality, grows up to 10 different constraints.
+
+Finally, the restaurant facility constraints. These are specified based on the current facility ability of each restaurant. Several examples of contraints in this type are as follow.
+
+- Every day they offer **just three different plates** (Thursdays four if they have some ingredients for day’s special) – so should be just three options in the overall menu
+- Every day they offer **just two vegans**
+- Monday is always **a mashed potato day** (with oven sausage or meat balls)
+- On Tuesdays and Thursdays they **always offer fish**
+- Day's special is always on Thursdays
+- Friday is always a **pasta day**
+
+We can see that, the facility contraints specify specifically which dishes must appear on particular day of the week.
+
+In summary, our target is to recommend the menus tailored for each restaurant given a long list of contraints covering various aspects of the dishes. And the system must be able to seamlessly combine recommendation engine with forecasting models. Given that idea, we propose the system design as described in the following section.
 
 # 2. Overview of system design
 
@@ -81,7 +109,7 @@ Data has always been the daunting problem for every data science problem and thi
   - historical sale (i.e. number of served covers/meals per day) (in)
   - historical waste amount per restaurant - day and CO2 amount (in kilograms)
   - Dish list: They have a dedicated list of available dishes. This list contains the name and corresponding dish code. The problem is that this list is supposed to contain every dishes but in fact, it’s not.
-  - Menu plan: Every year, the company’s food manager tailors a plan consisting of dishes. The manager of each of 17 restaurants will later base on this plan and select the menu for their own restaurant. Fig. 4 shows an example of menu plan.
+  - Menu plan:
 
 My practice:
 
@@ -93,17 +121,15 @@ My practice:
 
 {{ show_image(path="res/3-dim-dishes-schema.png", caption="Fig. 3: Schema of dimension 'dishes'", width=20) }}
 
-- Describe the problems with dimension ‘dishes’:
+- Describe the problems with dimension 'dishes':
 
   - One dish has multiple names (weird, right?)
     TODO: Explain why this happens
     -
-  - One dish has multiple meal codes (according to the customer business, the dish code is the ‘id’ of each dish)
+  - One dish has multiple meal codes (according to the customer business, the dish code is the 'id' of each dish)
   - Dish information is available in different sources and they are inconsistent:
     - Historical sale data
     - Historical waste amount data
-
-{{ show_image(path="res/3-menu-plan.png", caption="Fig. 4: Example of annual menu plan", width=95) }}
 
 - Different meal names may refer to the same dish ()
 
