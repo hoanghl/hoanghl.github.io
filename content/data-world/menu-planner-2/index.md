@@ -35,3 +35,5 @@ sale of restaurant
 sale of each meal
 
 waste amount
+
+TODO: mention that: we haven't yet been able to move to production phase in which we can truly evalutate the impact of our solution towards the business
