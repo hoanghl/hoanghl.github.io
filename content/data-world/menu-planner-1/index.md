@@ -1,8 +1,11 @@
 +++
-title = "Menu planner - When demand forecasting meets recommendation | Part 1 - The business, the system design and the data"
+title = "Menu planner - When demand forecasting meets recommendation"
+
 date = 2025-06-27
-description = " "
+description = "Part 1 - The business, the system design and the data"
 draft = true
+
+template = "page.html"
 
 [taxonomies]
 tags = ["ml","recommender-system","time-series-forecast"]
@@ -15,6 +18,7 @@ show_comments = true
 show_shares = false
 show_date = true
 keywords = "data,machine-learning,recommender-system,time-series-forecast"
+subtitle = "Part 1 - The business, the system design and the data"
 +++
 
 # Abstract
@@ -29,15 +33,15 @@ keywords = "data,machine-learning,recommender-system,time-series-forecast"
 
 # 1. Business and requirements
 
-To begin with, the company's business centers around serving the meals with over nearly 20 restaurants across Helsinki and Espoo. The main customer is undergraduate/graduate students. Annually, before the schoolyear begins, the company's food manager crafts a menu plan (called **menu plan**). This menu plan consists of all available dishes for that schoolyear and satisfies some primary requirements related to nutrition. Fig. 4 shows an example of menu plan. The manager of each restaurant will later, based on this plan, tailor the menu for their own restaurant to fit with restaurant's facility conditions. For example, for small restaurant, the number of daily served dishes cannot exceed a certain threshold.
+To begin with, the company's business centers around serving the meals with over nearly 20 restaurants across Helsinki and Espoo. The main customer is undergraduate/graduate students. Annually, before the schoolyear begins, the company's food manager crafts a menu plan (called **menu plan**). This menu plan consists of all available dishes for that schoolyear and satisfies some primary requirements related to nutrition. Figure 1 shows an example of menu plan. The manager of each restaurant will later, based on this plan, tailor the menu for their own restaurant to fit with restaurant's facility conditions. For example, for small restaurant, the number of daily served dishes cannot exceed a certain threshold.
 
 {{ show_image(path="res/1-menu-plan.png", caption="Figure 1: Example of annual menu plan. 'G' stands for 'Gluten', 'KELA' refers to a nutrition property of a dish, which follows the authority's policy.", width=80) }}
 
 {{ show_image(path="res/1-menu-restaurant.png", caption="Figure 2: Example of a menu of a specific restaurant on July 1, 2025.", width=60) }}
 
-From the figures, it can be seen that the dish quantity per day of a restaurant may be different from menu plan. In addition, hierarchically, there are essential 2 actors in the meal business of the company, as depicted in Figure 1. Each, as mentioned above, will be responsible for a group of constraints for the final menu. However, the company want to go further with the tailored menus. Particularly, they are interested in adapting the menus with 2 important targets: **_sale_** and **_sustainability_**.
+From the figures, it can be seen that the dish quantity per day of a restaurant may be different from menu plan. In addition, hierarchically, there are essential 2 actors in the meal business of the company, as depicted in Figure 3. Each, as mentioned above, will be responsible for a group of constraints for the final menu. However, the company want to go further with the tailored menus. Particularly, they are interested in adapting the menus with 2 important targets: **_sale_** and **_sustainability_**.
 
-{{ show_image(path="res/1-business-hierarchy.svg", caption="Fig. 1: Business actor hierarchy", width=60) }}
+{{ show_image(path="res/1-business-hierarchy.svg", caption="Figure 3: Business actor hierarchy", width=60) }}
 
 So, to sum up about the constraints of the menu, we have:
 
