@@ -1,5 +1,5 @@
 +++
-title = "Menu planner - When demand forecasting meets recommendation \n Part 1 - The tool, the system design and the data"
+title = "Menu planner - When demand forecasting meets recommendation | Part 1 - The business, the system design and the data"
 date = 2025-06-27
 description = " "
 draft = true
@@ -63,17 +63,13 @@ Secondly, the sustainability contraints. Entire world is talking about sustainab
 1. The waste amount littered per customer shouldn't be greater than **40g**
 2. The CO2 amount theoretically littered per customer as consuming a dish shouldn't be greater than **500g**
 
-TODO: Talk something more at this
-
-Next, the nutrition contraints. These cover various properties of the dishes such as dish type (e.g. vegan, meat, chicken), gluten, etc. Examples of nutrition-related contraints are as folow.
+Next, the nutrition contraints. These cover various properties of the dishes such as dish type (e.g. vegan, meat, chicken), gluten, etc. Examples of nutrition-related contraints are as folow. This list, in reality, grows up to 10 different constraints.
 
 - 2 vegan dishes/day
 - no more than 2 fish dishes per week
 - one dish cannot appear twice in the same week
 - gluten requirement
 - etc.
-
-This list, in reality, grows up to 10 different constraints.
 
 Finally, the restaurant facility constraints. These are specified based on the current facility ability of each restaurant. Several examples of contraints in this type are as follow.
 
@@ -87,6 +83,8 @@ Finally, the restaurant facility constraints. These are specified based on the c
 We can see that, the facility contraints specify specifically which dishes must appear on particular day of the week.
 
 In summary, our target is to recommend the menus tailored for each restaurant given a long list of contraints covering various aspects of the dishes. And the system must be able to seamlessly combine recommendation engine with forecasting models. Given that idea, we propose the system design as described in the following section.
+
+One more thing before ending this section, you can notice that I spend quite a lot describing the business aspect of the work, since I believe that bussiness acknowledgement plays a decisive role in understanding the data - the main object of data science. Deep understanding about business will shed light for successive analyses, solutions and evaluating the system's impact.
 
 # 2. Overview of system design
 
