@@ -106,16 +106,25 @@ Data has always been the daunting problem for every data science problem and thi
 
 ## a. Data sources
 
-- mostly Excel files
-- multiple types of data:
-  - historical sale (i.e. number of served covers/meals per day) (in)
-  - historical waste amount per restaurant - day and CO2 amount (in kilograms)
-  - Dish list: They have a dedicated list of available dishes. This list contains the name and corresponding dish code. The problem is that this list is supposed to contain every dishes but in fact, it’s not.
-  - Menu plan:
+All data sources are in Excel files and the raw schema is pretty clear. There are multiple types of data file:
 
-My practice:
+1. historical sale (i.e. number of served covers/meals per day):
+   This data is collected directly via POS machine at each restaurant. The historical data is available from 2023.
+
+2. historical waste amount per restaurant - day (in kilograms):
+   Everyday, after operating hour, the restaurant manager weights the amount of waste littered both by customers and during cooking. The waste data is available in the same period with the sale one.
+
+3. Menu plan:
+   As introduced in Section 1, this menu is crafted anually by company's food manager. It contains all available dishes for every restaurants. Note that some dishes in the menu plan already appeared in previous schoolyears while some are totally new. Also, the menus recommended by our system must only contains meals within this
+
+4. Dish list:
+   Apart from the annual menu plan, the company has a dedicated list of available dishes. This list contains the name, corresponding dish code and CO2 amount (yes, the company assumes that CO2 amount is fixed for each dish). The problem is that this list is supposed to contain every dishes but in fact, it's not.
+
+Before diving into the most controversal part of the data, I would like to share my practice as working with data science problem.
 
 > Always imagine the data schema when starting the problem
+
+By doing so, both analysis and predicting task would be much less painful. First, by thinking about the data schema, we can be aware of the available dimensions of the data as well as the intersection of thos dimensions - the fact tables. From this, we will know where to focus or where our analysis should expand. Secondly, after coming up with the data schema and implementing the code to clean them, during analysis and predicting, we would right away have the clean data to work on rather than copy-paste the cleaning code snippets across the notebooks.
 
 ## b. Problem with the central business entity: Dishes
 
