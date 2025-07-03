@@ -92,13 +92,13 @@ One more thing before ending this section, you can notice that I spend quite a l
 
 # 2. Overview of system design
 
-{{ show_image(path="res/2-system-components.svg", caption="Fig 1: System component", width=60) }}
+{{ show_image(path="res/2-system-components.svg", caption="Figure 4: System components", width=60) }}
 
-- Flow Forecasting → Recommendation → DB storage is run offline and is triggered when new data is available. When user want to visualize
+Figure 4 illustrates the basic components of the system. The database contains both clean data and forecasted data. We employ the Snowflake schema to organize the tables. The heart of the entire system is Forecasting module and Recommendation module and the forecasting - recommendation flow is as Figure 5. These 2 components will be covered in details in incoming blogs. Additionally, flow low Forecasting -> Recommendation -> DB storage is run offline and is triggered when new data is available. The recommended menus are also crafted in this flow (i.e. in offline mode). The reason we let the flow run offline because forecasting and menu crafting take quite long to run.
 
-The heart of the entire system is Forecasting module and Recommendation module and the forecasting - recommendation flow is as follow. These 2 components will be covered in details in incoming blogs.
+{{ show_image(path="res/2-forecasting-recommendation-flow.svg", caption="Figure 5: Diagram of flow forecasting and recommendation", width=90) }}
 
-{{ show_image(path="res/2-forecasting-recommendation-flow.svg", caption="Fig. 2: Diagram of flow forecasting and recommendation", width=95) }}
+Regarding the implementation, PosgresDB is sufficient for this task. The forecasting library used in this system is [darts](https://unit8co.github.io/darts/). All recommendation logic is written purely in Python.
 
 # 3. Data as a mess
 
