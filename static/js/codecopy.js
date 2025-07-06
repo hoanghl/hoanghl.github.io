@@ -7,7 +7,17 @@ function enableCopy() {
         node.appendChild(copyBtn);
         copyBtn.addEventListener("click", async () => {
           if (navigator.clipboard) {
-            let text = node.querySelectorAll('code')[0].innerText;
+            let rows = [];
+
+            node.querySelectorAll('code')[0].querySelectorAll('tr').forEach((r) => {
+              if (r.childElementCount == 1) {
+                rows.push(r.childNodes[0].innerText)
+              } else {
+                rows.push(r.childNodes[1].innerText)
+              }
+            });
+            let text = rows.join("");
+            console.log(`text = ${text}`);
             await navigator.clipboard.writeText(text);
             copyBtn.classList.add('clicked');
           }

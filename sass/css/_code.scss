@@ -1,83 +1,120 @@
 pre {
-    background: var(--code-bg-color);
-    padding: 1.5em;
-    overflow: auto;
-    // margin: 1.5em;
-    code, span {
-      font-family: "CascadiaCodeNF";
-      font-size: 1rem;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-    span .z-key span {
-      color: var(--code-kw-color);
-      font-weight: normal;
-    }
+  background: var(--code-bg-color);
+  padding: 1.5em;
+  overflow: auto;
+  // margin: 1.5em;
+  code,
+  span {
+    font-family: "CascadiaCodeNF";
+    font-size: 1rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
-
-  pre[data-linenos] {
-    padding: 1rem 0;
-  }
-  pre table td {
-    padding: 0;
-  }
-  pre table td:nth-of-type(1) {
-    text-align: center;
-    user-select: none;
-    vertical-align: top;
-    width: 5%;
-  }
-  pre mark {
-    display: block;
-  }
-  pre table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .z-keyword, .z-entity, .z-function, .z-option {
-    font-weight: normal;
+  span .z-key span {
     color: var(--code-kw-color);
+    font-weight: normal;
   }
-  .z-qualified-name .z-storage {
-    color: var(--code-fg-color);
-  }
-  .z-generic-name {
-    color: var(--code-fg-color);  
-  }
-  .z-string {
-    color: var(--code-string-color);  
-  }
-  .z-comment {
-    color: var(--code-comment-color);  
-  }
-  .z-variable.z-readwrite {
-    color: var(--code-string-color);
-  }
-
-  .icon-copy {
-    mask: url('../icons/copy.svg');
-    &.clicked {
-        mask: url('../icons/copied.svg');
+  border-radius: 0.5em;
+  position: relative;
+  .copybutton {
+    outline: none;
+    padding: 0.4em;
+    position: absolute;
+    margin: 0.5em;
+    right: 0;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    &.icon-copy {
+      mask-size: 20px;
+      mask-repeat: no-repeat;
     }
+  }
 }
 
-pre {
-    border-radius: .5em;
-    position: relative;
-    .copybutton {
-        outline: none;
-        padding: .4em;
-        position: absolute;
-        margin: .5em;
-        right: 0;
-        top: 0;
-        width: 16px;
-        height: 16px;
-        &.icon-copy {    
-            mask-size: 20px;
-            mask-repeat: no-repeat;
-        }
+pre[data-linenos] {
+  padding: 1rem 0;
 
+  table {
+    width: 100%;
+    border: none;
+    th,
+    td {
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      padding-bottom: 0.1em;
+      padding-top: 0.1em;
+      border-right: 0.5px solid rgb(73, 73, 73);
+      border-bottom: none;
+      border-top: none;
+      border-left: none;
     }
+    th {
+      background-color: var(--hover-bg);
+    }
+
+    tr > td:first-child {
+      color: #727272;
+      user-select: none;
+    }
+
+    tr > td:nth-child(2) {
+      padding-left: 1em;
+    }
+  }
+}
+pre table td {
+  padding: 0;
+}
+pre table td:nth-of-type(1) {
+  text-align: center;
+  user-select: none;
+  vertical-align: top;
+  width: 7%;
+}
+pre mark {
+  display: block;
+}
+pre table {
+  // border-spacing: 100;
+  border-right: 1px solid var(--main-color);
+  border-bottom: 1px solid var(--main-color);
+  border: none;
+  th,
+  td {
+    // padding: 0.5em;
+    border: none;
+  }
+  th {
+    background-color: var(--hover-bg);
+  }
+}
+.z-keyword,
+.z-entity,
+.z-function,
+.z-option {
+  font-weight: normal;
+  color: var(--code-kw-color);
+}
+.z-qualified-name .z-storage {
+  color: var(--code-fg-color);
+}
+.z-generic-name {
+  color: var(--code-fg-color);
+}
+.z-string {
+  color: var(--code-string-color);
+}
+.z-comment {
+  color: var(--code-comment-color);
+}
+.z-variable.z-readwrite {
+  color: var(--code-string-color);
 }
 
+.icon-copy {
+  mask: url("../icons/copy.svg");
+  &.clicked {
+    mask: url("../icons/copied.svg");
+  }
+}
