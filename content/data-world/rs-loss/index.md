@@ -15,6 +15,7 @@ show_comments = true
 show_shares = false
 show_date = true
 keywords = "data,machine-learning,recommender-system,loss-function"
+subtitle = ""
 +++
 
 # 0. Brief introduction
@@ -41,13 +42,13 @@ Denote:
 
 - User: \\( u \\)
 - Item: \\( i \\)
-- Target score: \\( y_{ui} \\) - probability value indicating whether user \\( u \\) interacts with item \\( i \\)
-- Predicted score: \\( \hat{y}_{ui} \\) - predicted probability
+- Target score: \\( y\_{ui} \\) - probability value indicating whether user \\( u \\) interacts with item \\( i \\)
+- Predicted score: \\( \hat{y}\_{ui} \\) - predicted probability
 - Interaction set \\( \mathcal{Y} \\)
 - Negative Interaction set \\( \mathcal{Y}^- \\) - set of (sampled) negative interactions
 
 {% katex(block=true) %}
-\mathcal{L} = - \Sigma_{(u, i) \in \mathcal{Y} \; \cup \; \mathcal{Y}^- } \Big( y_{ui} \log \big( \hat{y}_{ui} \big) + (1 - y_{ui}) \log (1 - \hat{y}_{ui}) \Big)
+\mathcal{L} = - \Sigma*{(u, i) \in \mathcal{Y} \; \cup \; \mathcal{Y}^- } \Big( y*{ui} \log \big( \hat{y}_{ui} \big) + (1 - y_{ui}) \log (1 - \hat{y}\_{ui}) \Big)
 {% end %}
 
 # 3. As ranking problem
@@ -57,7 +58,7 @@ Denote:
 Denote:
 
 - Sigmoid function: \\( \sigma(x) = \dfrac{1}{1 + \exp (-x)} \\)
-- The score predicted by the model for a specific user - item pair: \\( \hat{y}_{ui} \\)
+- The score predicted by the model for a specific user - item pair: \\( \hat{y}\_{ui} \\)
 - Margin: \\( m \\)
 - Set of triplets (user \\( u \\), positive item \\( i \\), negative item \\( j \\) ):
 
@@ -71,7 +72,7 @@ D_S = \lbrace (u, i, j) \vert i \in I_u^+ \land j \in I_u^{-} \rbrace
 - categorized as **pairwise ranking loss**
 
 {% katex(block=true) %}
-\mathcal{L} = \Sigma_{u, i, j \in D} \ln \sigma(\hat{y}_{ui} - \hat{y}_{uj}) - \lambda_{\Theta} \lVert \Theta \rVert^2
+\mathcal{L} = \Sigma*{u, i, j \in D} \ln \sigma(\hat{y}*{ui} - \hat{y}_{uj}) - \lambda_{\Theta} \lVert \Theta \rVert^2
 {% end %}
 
 ## 3.2. Hinge loss
@@ -87,7 +88,7 @@ D_S = \lbrace (u, i, j) \vert i \in I_u^+ \land j \in I_u^{-} \rbrace
 - categorized as **listwise ranking loss**
 
 {% katex(block=true) %}
-\mathcal{L} = -\dfrac{1}{|\mathcal{D}|} \sum_{(u, i) \in \mathcal{D}} \log \Bigg\lbrace \dfrac{\exp (f(u, i))}{\sum_{j=1}^{\mathfrak{R}} \exp (f(u, j))} \Bigg\rbrace
+\mathcal{L} = -\dfrac{1}{|\mathcal{D}|} \sum*{(u, i) \in \mathcal{D}} \log \Bigg\lbrace \dfrac{\exp (f(u, i))}{\sum*{j=1}^{\mathfrak{R}} \exp (f(u, j))} \Bigg\rbrace
 {% end %}
 
 where
@@ -98,7 +99,7 @@ where
 
 ⇒ In other words, Softmax loss calculation is done over the entire set of items
 
-One important point is that the function \\( f(\cdot) \\) indicates multiple things. In some works, it implies a function calculating the score given the user \\( u \\) and item \\( i \\) . In other works, however, it specifically implies the affinity score function given the user embedding and user embedding. This affinity function can be cosine similarity of dot product. Additionally, the latter implication refers to the last step of the former.
+Function \\( f(\cdot) \\) indicates the affinity function calculating the score. Usually, \\( u \\) and item \\( i \\) correspondingly represent the user embedding and item embedding. This affinity function can be cosine similarity or dot product.
 
 In conclusion, in either way of implication, the output is the score of the user \\( u \\) and item \\( i \\) .
 
@@ -107,7 +108,7 @@ In conclusion, in either way of implication, the output is the score of the user
 Despite helping the model learn the most, the biggest issue of Softmax loss is the calculation is done over the entire set of the items, which make it infeasible in reality when the computation is prohibitively expensive, and the item set always change. One trick to tackle this problem is to do softmax over a subset of items. In particular, the Sample Softmax Loss is calculated as follow:
 
 {% katex(block=true) %}
-\mathcal{L} = -\dfrac{1}{|\mathcal{D}|} \sum_{(u, i) \in \mathcal{D}} \log \Bigg\lbrace \dfrac{\exp (f(u, i))}{\exp (f(u, i)) + \sum_{j \in \mathcal{N}} \exp (f(u, j))} \Bigg\rbrace
+\mathcal{L} = -\dfrac{1}{|\mathcal{D}|} \sum*{(u, i) \in \mathcal{D}} \log \Bigg\lbrace \dfrac{\exp (f(u, i))}{\exp (f(u, i)) + \sum*{j \in \mathcal{N}} \exp (f(u, j))} \Bigg\rbrace
 {% end %}
 
 where:
@@ -120,14 +121,14 @@ When dealing with multiple positive samples, one can employ the loss in contrast
 
 Given:
 
-- a batch \\( b \\) containing a list of samples \\( \{(\mathrm{x}_i, y_i) | i \in 1..b \} \\) where \\( \mathrm{x}_i \in \mathbb{R}^n \\) and \\( y_i \\) are correspondingly the hidden representation and categorical information of sample \\( i \\).
+- a batch \\( b \\) containing a list of samples \\( \{(\mathrm{x}\_i, y_i) | i \in 1..b \} \\) where \\( \mathrm{x}\_i \in \mathbb{R}^n \\) and \\( y_i \\) are correspondingly the hidden representation and categorical information of sample \\( i \\).
 - temperature \\( \tau \in (0, 1] \\)
-- \\( d(\mathrm{x}_i, \mathrm{x}_j) \\) is the distance defined upon 2 vectors \\(\mathrm{x}_i \\) \\(\mathrm{x}_j \\). It can be L2 or cosine similarity
+- \\( d(\mathrm{x}\_i, \mathrm{x}\_j) \\) is the distance defined upon 2 vectors \\(\mathrm{x}\_i \\) \\(\mathrm{x}\_j \\). It can be L2 or cosine similarity
 
 The soft nearest neighbor loss is defined as follow.
 
 {% katex(block=true) %}
-\mathcal{L} = -\dfrac{1}{b} \sum_{i \in 1..b} \log \Bigg\lbrace \dfrac{\sum_{\substack{j \in 1..b \\ j \ne i \\ y_j = y_i}} \exp - \dfrac{d(\mathrm{x}_i, \mathrm{x}_j)}{\tau} }{\sum_{\substack{k \in 1..b \\ j \ne i}} \exp - \dfrac{d(\mathrm{x}_i, \mathrm{x}_k)}{\tau} } \Bigg\rbrace
+\mathcal{L} = -\dfrac{1}{b} \sum*{i \in 1..b} \log \Bigg\lbrace \dfrac{\sum*{\substack{j \in 1..b \\ j \ne i \\ y*j = y_i}} \exp - \dfrac{d(\mathrm{x}\_i, \mathrm{x}\_j)}{\tau} }{\sum*{\substack{k \in 1..b \\ j \ne i}} \exp - \dfrac{d(\mathrm{x}\_i, \mathrm{x}\_k)}{\tau} } \Bigg\rbrace
 {% end %}
 
 # 4. As regression problem
@@ -137,5 +138,5 @@ The soft nearest neighbor loss is defined as follow.
 - Use MSELoss
 
 {% katex(block=true) %}
-\mathcal{L} = \dfrac{1}{N} \sum_{i=1}^N \big( \hat{y}_{ui} - y_{ui} \big)^2
+\mathcal{L} = \dfrac{1}{N} \sum*{i=1}^N \big( \hat{y}*{ui} - y\_{ui} \big)^2
 {% end %}

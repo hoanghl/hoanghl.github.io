@@ -45,7 +45,7 @@ Corollary impact: facility the compiler (i.e. the Borrow checker) as checking th
 
 Example of compiler’s being aware of the internal code of the function:
 
-```rust
+```rust,linenos
 // ================================================
 // Permitted
 // ================================================
