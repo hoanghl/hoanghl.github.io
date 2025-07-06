@@ -3,7 +3,7 @@ title = "Menu planner - When demand forecasting meets recommendation"
 
 date = 2025-07-06
 description = "Part 1 - The business, the system design and the data"
-draft = true
+draft = false
 
 template = "page.html"
 
