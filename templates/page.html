@@ -9,7 +9,12 @@
         {%- elif section.title -%}{{ section.title | safe }}
         {%- endif -%}
        </h1>
-      {% if page.extras.show_date %}
+
+      <h2 class="center" style="font-style: italic;">
+        {%- if page.extra.show_date -%}{{ page.extra.subtitle | safe }}
+        {%- endif -%}
+      </h2>
+      {% if page.extra.show_date %}
       <h6>{{ page.date | date(format="%e %b %Y") }}</h6>
       {% endif %}
       <span class="post-tags">

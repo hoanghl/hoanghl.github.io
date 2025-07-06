@@ -1,6 +1,6 @@
 +++
-title = "Evaluation metrics in recommender system"
-date = 2024-01-23
+title = "Offline evaluation metrics in recommender system"
+date = 2025-02-01
 description = " "
 draft = false
 
@@ -13,15 +13,17 @@ show_toc = true
 show_copyright = false
 show_comments = true
 show_shares = false
+show_date = true
 keywords = "data,machine-learning,recommender-system,evaluation"
+subtitle = ""
 +++
 
 # Definition of Relevance
 
 The relevance is indicated either by:
 
-- binary value: 1 → like ; 0 → not like
-- setting a threshold for non-binary values: given the possible rates are [1, 2…5], all values greater than 3 is considered relevant
+- binary value: 1 \\( \rightarrow \\) like ; 0 \\( \rightarrow \\) not like
+- setting a threshold for non-binary values: given the possible rates are \\( [1, 2...5] \\), all values greater than 3 is considered relevant
 
 Hereafter, the term relevant and positive are used interchangeably.
 
@@ -54,15 +56,15 @@ $$
 
 Unlike accuracy based metrics, decision support ones can work with either binary or non-binary outputs because they rely on the idea of relevance.
 
-{{ show_image(path="res/decision_support.jpeg", caption="", width="10") }}
+{{ show_image(path="res/decision_support.jpeg", caption="", width="100") }}
 
 ## 1. Precision@k
 
 The evaluation process is as follow:
 
-1. For each user in the test set, you have $M$ items, and out of them, there are $N$ positive items.
-2. You forward these $M$ items into model $f_\theta$ to calculate the corresponding scores.
-3. You sort these $M$ items w.r.t. their score and take \\( k \\) first items
+1. For each user in the test set, you have \\( M \\) items, and out of them, there are \\( N \\) positive items.
+2. You forward these \\( M \\) items into model \\( f\_\theta \\) to calculate the corresponding scores.
+3. You sort these \\( M \\) items w.r.t. their score and take \\( k \\) first items
 
 Precision@k is then calculated as follow:
 
@@ -124,7 +126,7 @@ where:
 
 The following flowchart describes setps to calculate nDCG@k in recommendation with implicit feedback case.
 
-{{ show_image(path="res/ndcg_flowchart.jpeg", caption="", width=10) }}
+{{ show_image(path="res/ndcg_flowchart.jpeg", caption="", width=100) }}
 
 In such case,
 
@@ -140,7 +142,7 @@ $$
 
 Although nDCG@k can be used in both cases when the gain is either binary or not, for binary gain case, it is recommended to used MAP@k.
 
-## 2. Mean Average Precision at k (MAP@k)
+## 2. Mean Average Precision at \\( k \\) (MAP@k)
 
 MAP@k leverages Precision@k to ranking-aware metrics’s world.
 
@@ -163,7 +165,7 @@ $$
 MAP@k = \dfrac{1}{|U|} \sum_{u \in U} \big( AP@k \big)_u
 $$
 
-## 3. Mean Reciprocal Rank at k (MRR@k)
+## 3. Mean Reciprocal Rank at \\( k \\) (MRR@k)
 
 Reciprocal Rank refers to the rank of the first relevant item within the first \\( k \\) items, and Mean Reciprocal Rank averages the Reciprocal Rank at k of all users.
 
@@ -177,9 +179,9 @@ $$
 MRR@k = \dfrac{1}{|U|} \sum_{u \in U} \dfrac{1}{rank_u}
 $$
 
-## 4. Hit Rate at k
+## 4. Hit Rate at \\( k \\)
 
-Hit Rate at k estimates the average number of users who have the relevant item appearing in first \\( k \\) items. The formula is as follow:
+Hit Rate at \\( k \\) estimates the average number of users who have the relevant item appearing in first \\( k \\) items. The formula is as follow:
 
 $$
 HR@k = \dfrac{1}{|U|} \sum_{u \in U} \Bbb{1}_{\text{relevant item appears in first \\( k \\) items}}

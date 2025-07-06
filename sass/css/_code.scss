@@ -1,6 +1,7 @@
 pre {
     background: var(--code-bg-color);
     padding: 1.5em;
+    overflow: auto;
     // margin: 1.5em;
     code, span {
       font-family: "CascadiaCodeNF";
@@ -10,7 +11,7 @@ pre {
     }
     span .z-key span {
       color: var(--code-kw-color);
-      font-weight: bold;
+      font-weight: normal;
     }
   }
 
@@ -23,6 +24,8 @@ pre {
   pre table td:nth-of-type(1) {
     text-align: center;
     user-select: none;
+    vertical-align: top;
+    width: 5%;
   }
   pre mark {
     display: block;
@@ -32,7 +35,7 @@ pre {
     border-collapse: collapse;
   }
   .z-keyword, .z-entity, .z-function, .z-option {
-    font-weight: bold;
+    font-weight: normal;
     color: var(--code-kw-color);
   }
   .z-qualified-name .z-storage {
@@ -77,3 +80,4 @@ pre {
 
     }
 }
+

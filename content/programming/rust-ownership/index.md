@@ -32,7 +32,7 @@ you are assigning another reference of the above 4-byte-size memory area for `y`
 
 In addition, Python has 4 immutable types (i.e. the types which cannot be modified) and they are `int`, `float`, `str` and `tuple`. For example, in the following snippet,
 
-```python
+```python,linenos
 y = 4
 x = y
 y += 5
@@ -46,7 +46,6 @@ In Rust, the assignment behaves mostly the same. Taking the following snippet fo
 ```rust
 let x = 3;
 let y = x;
-
 ```
 
 Owner: when you assign a variable to a specific value, that variable is the owner of that value and that value can only have one owner at a time
@@ -62,7 +61,7 @@ TODO: What do `&` , `*`, reference, deference, `mut` , `&mut`mean and how to the
 
 `mut` is a Rust keyword indicating that the object can be modified. By default, every variable in Rust is immutable. `mut` is only applied onto a variable, a reference and a pointer. Examples for 3 cases are described below.
 
-```rust
+```rust, linenos
 // Case 1: mut with variable
 let mut a = String::from("Hellow");
 
@@ -77,7 +76,7 @@ fn modify(c: &mut String) {}
 
 At any given time, there is only one mutable reference corresponding to the resource. For example, the following snippet raises error.
 
-```rust
+```rust,linenos
 struct Person {height: Option<f32>, age: Option<i32>};
 let mut s = Person {height: None, age: None};
 let b = &mut s;
