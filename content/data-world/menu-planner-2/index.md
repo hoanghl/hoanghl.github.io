@@ -36,15 +36,21 @@ We therefore formulate the problem as multi-series forecasting.
 
 ## 1. Historical data
 
-{{ show_image(path="res/1-example-sale-dish.png", caption="Figure 1: Example of dish's sale data.", width=100) }}
+{{ show_image(path="res/1-example-sale-dish.png", caption="Figure 1: Example of dish's sale data (All figures are not real).", width=80) }}
 
-Available dimensions:
+{{ show_image(path="res/1-example-sale-restaurant.png", caption="Figure 2: Example of restauralt's sale data (All figures are not real).", width=80) }}
 
-- dish type: vegan, meat, fish, chicken
-- dish name: in plain Finnish
-- opening hour of restaurant
-- datetime info
-- examination calendar
+{{ show_image(path="res/1-example-waste-restaurant.png", caption="Figure 3: Example of restauralt's waste data (All figures are not real).", width=80) }}
+
+Figure 1, Figure 2 and Figure 3 demonstrate the sample data of dish sale, restaurant sale and restaurant waste amount. Each of which will be forecast by a dedicated model. Beside, we include the information about other available dimensions into forecasting model as follow.
+
+- **_dish type_**: vegan, meat, fish, chicken
+- **_dish name_**: in plain Finnish
+- **_opening hour of restaurant_**
+- **_datetime info_**
+- **_examination calendar_**: since t
+
+All forecasting models are mainly built with `darts` {{ reference(key="JMLR:v23:21-1177") }}. Some other solutions used `scikit-learn` {{ reference(key="JMLR:v12:pedregosa11a") }}, `PyTorch` {{ reference(key="10.5555/3454287.3455008") }} and `PyTorch Lightning` {{ reference(key="Falcon_PyTorch_Lightning_2019") }}.
 
 ## 2. Unsuccessful attempts
 
@@ -52,7 +58,26 @@ From my view, I believe that the unsuccessful attempts are equally valuable less
 
 Honestly, the definition of failed model is unclear since "all models are wrong" (George Box). One model is considered less failed than the other if it can perform well in both offline evaluation and real-world usage.
 
-### 2.1. Forecasting sale and waste at restaurant-level
+### 2.1. `darts` 101
+
+We heavily use `darts` to construct the forecasting model. All logic of `darts` are built upon the class `Timeseries`. There are 2 principal things for this class:
+
+1. The `time index`: Usually indicate the timestamp of the datapoint
+2. The `value`: Indicate the value at the given timestamp
+
+Additionally, `darts` also separates the **_target_** and **_covariate_**. Assume we need to predict the sale of a restaurant whose main customers are students of the university nearby. We believe that the number of classes every affect the restaurant sale. Therefore, we use this piece of information into forecasting. In this setting, the class quantity is **_covariate_** and restaurant sale is **_target_**.
+
+Mathematically, **_covariate_** is \\( X \\) - input of forecasting model \\( f\_{\theta} \\):
+
+$$
+y = f_{\theta} (X)
+$$
+
+In `darts`, both **_covariate_** and **_target_** are presented by `Timeseries` instance. Note that, in time series forecasting, it's very likely that the target of the current timestamp depends on the target values of previous timestamp (these previous target values are called **_lagged values of target_**). `darts` treats these lagged values as covariate values (i.e. the lagged value is just one of many values in feature vector of feature matrix \\( X \\)).
+
+Having mentioned the fundamental of the main library, let's dive into our unsuccessful solutions as forecasting are 3 things.
+
+### 2.2. Forecasting sale and waste at restaurant-level
 
 - Global model to forecast sale/waste of all restaurant
   Reason:
@@ -60,9 +85,21 @@ Honestly, the definition of failed model is unclear since "all models are wrong"
   - lack of data -> If train all available data -> data staleness
 - Global model to forecast
 
-### 2.2. Forecasting sale at dish-level
+### 2.3. Forecasting sale at dish-level
 
--
+We try to forecast the sale of each dish at each restaurant.
+
+This is where thing becomes more complex. Since the data is stored in `pandas` DataFrame, in order to use the existing models of `darts`, it's natural to use function `Timeseries.from_dataframe` to convert
+
+- Global model to forecast sale of all dishes in all restaurants:
+
+  - Just use dish name and restaurant id without lagged value
+  - Tree-based: Each dish has very di
+
+  - Deep Learning base:
+    - Transformer/Co-Attention without lagged values
+    - RNN/LSTM/Transformer with lagged values:
+      - Each dish
 
 ## 3. Current models
 
