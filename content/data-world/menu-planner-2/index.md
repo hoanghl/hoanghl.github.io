@@ -24,7 +24,7 @@ subtitle = "Part 2 - Forecasting model in practice: Jumping out of Kaggle's safe
 
 -
 
-{{ show_image(path="res/1-forecasting-flow.png", caption="Figure 1: Demand forecasting components.", width=70) }}
+{{ show_image(path="res/1-forecasting-flow.png", caption="Figure 1: Demand forecasting components.", width=50) }}
 
 Figure 1 illustrate the demain forecasting components in our system. Basically, there are 3 things to forecast:
 
@@ -36,11 +36,11 @@ We therefore formulate the problem as multi-series forecasting.
 
 ## 1. Historical data
 
-{{ show_image(path="res/1-example-sale-dish.png", caption="Figure 1: Example of dish's sale data (All figures are not real).", width=70) }}
+{{ show_image(path="res/1-example-sale-dish.png", caption="Figure 1: Example of dish's sale data (All figures are not real).", width=60) }}
 
-{{ show_image(path="res/1-example-sale-restaurant.png", caption="Figure 2: Example of restauralt's sale data (All figures are not real).", width=70) }}
+{{ show_image(path="res/1-example-sale-restaurant.png", caption="Figure 2: Example of restauralt's sale data (All figures are not real).", width=60) }}
 
-{{ show_image(path="res/1-example-waste-restaurant.png", caption="Figure 3: Example of restauralt's waste data (All figures are not real).", width=70) }}
+{{ show_image(path="res/1-example-waste-restaurant.png", caption="Figure 3: Example of restauralt's waste data (All figures are not real).", width=60) }}
 
 Figure 1, Figure 2 and Figure 3 demonstrate the sample data of dish sale, restaurant sale and restaurant waste amount. Each of which will be forecast by a dedicated model. Beside, we include the information about other available dimensions into forecasting model as follow.
 
@@ -95,7 +95,7 @@ This is where thing becomes more complex. Since the data is stored in `pandas` D
 
 In other word, it was impossible to use the existing forecasting models in `darts` to build the predictor. We therefore switched to the manually crafted model.
 
-We utilize the regression models in `scikit-learn` and other tree-based candidates such as `xgboosts`, `catboost` and lightgbm`. For deep learning solutions, we manually designed a bunch of models using `PyTorch`. The idea of those self-crafted models varied from RNN, LSTM, Co-Attention to Transformer.
+We utilize the regression models in `scikit-learn` and other tree-based candidates such as `xgboosts`, `catboost` and `lightgbm`. For deep learning solutions, we manually designed a bunch of models using `PyTorch`. The idea of those self-crafted models varied from RNN, LSTM, Co-Attention to Transformer.
 
 For constructing the covariate \\( X \\), we use the following:
 
@@ -112,17 +112,23 @@ Another difference between sale of restaurant-level and dish-level is that while
 
 ## 3. Current models
 
-Given the unique trend in sale and waste of each restaurant, we abandoned global models but use a distinct forecaster for each restaurant/dish.
+Given the unique trend in sale and waste of each restaurant, we abandoned global models but instead used a distinct forecaster for each restaurant/dish.
 
-In particular, to forecast the sale/waste of each restaurant, a distinct model is used. To deal with the data staleness problem, a popular re-training strategy is employed.
+In particular, to forecast the sale/waste of each restaurant, we built a separate model. To deal with the data staleness problem, model is retrained when new data appears. Since the data of sale or waste at restaurant level is more abundant than at dish level, it is possible to use moderately complex model. Particularly, we employed a **_CatBoost_** model for each restaurant to predict the future waste and sale.
 
-For forecasting the dish sale at each restaurant, given the knowledge about the data (i.e.) plus an accidental but revolutional about how to construct the `Timeseries` instance from `pandas` Dataframe without being constrained in period time index, we were able to build the simple but effective forecasting strategy. Each dish in a separate restaurant, a [NaiveMovingAverage](https://unit8co.github.io/darts/generated_api/darts.models.forecasting.baselines.html#darts.models.forecasting.baselines.NaiveMovingAverage) model is used.
+For forecasting the sale of each particular dish at each restaurant, given the knowledge about the data (i.e.) plus an accidental but revolutionary about how to construct the `Timeseries` instance from `pandas` Dataframe without being constrained in period time index, we were able to build the simple but effective forecasting strategy. Each dish in a separate restaurant, a [NaiveMovingAverage](https://unit8co.github.io/darts/generated_api/darts.models.forecasting.baselines.html#darts.models.forecasting.baselines.NaiveMovingAverage) model is used.
 
-However, each model has dynamic context window size (Context window size is the number of last values used to predict value in current timestamp). Particularly, the context window size for each dish at specific is calculated as follow.
+The primary parameter of **_NaiveMovingAverage_** is **_context window size_** (Context window size is the number of last values which the model uses to predict value in current timestamp). We encounter the question that how to choose the appropriate the **_context window size_**. Choosing a universal **_context window size_** for every **_NaiveMovingAverage_** model is impossible because the number of datapoint for each dish is different.
+
+Therefore, we propose using a dynamic aprroach. Particularly, the context window size for each dish is calculated as follow.
 
 $$
 window\\_size = \min \lbrace{ 5, no\\_training\\_data\\_points \rbrace}
 $$
+
+By properly using **_NaiveMovingAverage_** with a little hack, we were able to achieve a remarkable improvement in forecasting the dish-level sale. In Figure 6, we compare the MAPE in evaluation split of 2 approaches of dish-level forecasting: old one is global model with sophisticated feature engineering (blue color) and new one with **_NaiveMovingAverage_** (green). The significant gap in performance between 2 approaches consolidates the fact that: it isn't always that the sophisticated ensemble or deep learning-based models will win.
+
+{{ show_image(path="res/2-per-meal-forecaster-improvements.png", caption="Figure 6: Comparison between old approach and new approach (using NaiveMovingAverage) in forecasting the sale of each dish.", width=60) }}
 
 # 4. Evaluation - not anymore the race of RMSE
 
