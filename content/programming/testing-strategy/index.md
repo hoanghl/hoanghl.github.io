@@ -66,7 +66,7 @@ In practice, the SDK is responsible for maintaining persistent bidirectional con
 - **SDK example:** Test the `format_message()` function and verify that `send_event()` calls the socket correctly while using a mocked WebSocket object instead of a real network connection.
 - **Why this matters:** If this layer is wrong, every higher-level test may fail for reasons unrelated to the server or the network.
 
-```python
+```python,linenos
 import json
 import pytest
 from unittest.mock import MagicMock
@@ -112,7 +112,7 @@ def test_send_event_calls_socket():
 - **SDK example:** Run a minimal startup check that initializes the client and attempts to open a WebSocket connection. If startup fails or the endpoint is unreachable, the build should fail immediately.
 - **Why this matters:** It acts as a gatekeeper and prevents wasting time and CI resources on deeper tests when the build is already broken.
 
-```python
+```python,linenos
 import pytest
 import websockets
 
@@ -142,7 +142,7 @@ async def test_sdk_starts_and_connects():
 - **SDK example:** Start a local WebSocket server and verify that when the SDK sends a subscription message, the server returns the expected acknowledgement payload and session ID.
 - **Why this matters:** Both sides may be individually correct while still failing together because of mismatched protocol assumptions.
 
-```python
+```python,linenos
 import asyncio
 import pytest
 import websockets
@@ -180,7 +180,7 @@ async def test_server_handshake_contract():
 - **SDK example:** Use Playwright to launch a real browser, trigger a UI click, and verify that the SDK opens a WebSocket session and carries the user interaction through the end-to-end path.
 - **Why this matters:** It confirms that the system delivers the intended business outcome, not just technically correct intermediate steps.
 
-```python
+```python,linenos
 from playwright.sync_api import sync_playwright
 import pytest
 

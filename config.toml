@@ -20,6 +20,8 @@ insert_anchor_links = "none"
 [markdown.highlighting]
 error_on_missing_language = false
 style = "class"
+class_prefix = "z-"
+line_numbers = true
 theme = "monokai"
 
 [search]

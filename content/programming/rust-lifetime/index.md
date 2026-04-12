@@ -67,7 +67,7 @@ fn longest_forbidden_5<'a, 'b, 'c>(x: &'a str, y: &'b str) -> &'c str {
 }
 ```
 
-```python
+```python,linenos
 a = 10
 ```
 

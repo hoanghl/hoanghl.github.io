@@ -69,8 +69,8 @@
   <meta name="description" content="{{ config.extra.description }}">  
 {% else %}
   <meta name="description" content="{{ dsc }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 {% endif %}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="{{config.extra.author}}">
   {% if page.extra.keywords is defined %}<meta name="keywords" content="{{ page.extra.keywords }}">{% endif %}
   <link type="text/css" rel="stylesheet" href="{{config.base_url | safe }}css/grid.css?v={{ cdn_version }}">
