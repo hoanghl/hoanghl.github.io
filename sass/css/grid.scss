@@ -46,13 +46,12 @@ $breakpoint-med: 45em; // 720px
 $breakpoint-large: 60em; // 960px
 
 .container {
-  width: 90%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-
-  @media only screen and (min-width: $breakpoint-small) {
-    width: 80%;
-  }
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  box-sizing: border-box;
 
   @media only screen and (min-width: $breakpoint-large) {
     width: 100%;
@@ -66,7 +65,7 @@ $breakpoint-large: 60em; // 960px
 
 .row [class^="col"] {
   float: left;
-  margin: 0.5rem 2%;
+  margin: 0.5rem 0;
   min-height: 0.125rem;
 }
 
@@ -91,6 +90,21 @@ $breakpoint-large: 60em; // 960px
   width: $width;
 }
 
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+  width: 100%;
+}
+
 .col-1-sm { width:($width / 12) - ($gutter * 11 / 12); }
 .col-2-sm { width: ($width / 6) - ($gutter * 10 / 12); }
 .col-3-sm { width: ($width / 4) - ($gutter * 9 / 12); }
@@ -105,6 +119,16 @@ $breakpoint-large: 60em; // 960px
 .col-12-sm { width: $width; }
 
 @media only screen and (min-width: $breakpoint-med) {
+  .container {
+    width: 80%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .row [class^="col"] {
+    margin: 0.5rem 2%;
+  }
+
   .col-1 { width:($width / 12) - ($gutter * 11 / 12); }
   .col-2 { width: ($width / 6) - ($gutter * 10 / 12); }
   .col-3 { width: ($width / 4) - ($gutter * 9 / 12); }

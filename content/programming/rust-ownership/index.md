@@ -18,13 +18,13 @@ keywords = "programming,rust"
 
 In Python, when you first assign a variable to a value such as
 
-```python
+```python,linenos
 x = 23
 ```
 
 what happens under the hood is that Python creates a 4-byte-size area in the memory, assigns value 23 for it and binds the variable `x` for that memory. Later, when you do
 
-```python
+```python,linenos
 y = x
 ```
 
@@ -43,7 +43,7 @@ line 2 means that the memory area containing value 4 now has two references name
 
 In Rust, the assignment behaves mostly the same. Taking the following snippet for example.
 
-```rust
+```rust,linenos
 let x = 3;
 let y = x;
 ```

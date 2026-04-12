@@ -6,7 +6,8 @@ pre {
   code,
   span {
     font-family: "CascadiaCodeNF";
-    font-size: 1rem;
+    font-size: 0.95rem;
+    line-height: 0.5;
     white-space: pre-wrap;
     word-wrap: break-word;
   }
@@ -32,6 +33,19 @@ pre {
   }
 }
 
+@media only screen and (max-width: 45em) {
+  pre {
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    code,
+    span {
+      white-space: pre;
+      word-wrap: normal;
+    }
+  }
+}
+
 .giallo-l {
   display: inline-block;
   min-height: 1lh;
@@ -44,7 +58,7 @@ pre {
   margin-right: 0.4em;
   padding: 0.4em;
   min-width: 3ch;
-  text-align: right;
+  text-align: center;
   opacity: 0.8;
 }
 
@@ -72,6 +86,7 @@ pre[data-linenos] {
     tr > td:first-child {
       color: #727272;
       user-select: none;
+      text-align: center;
     }
 
     tr > td:nth-child(2) {
