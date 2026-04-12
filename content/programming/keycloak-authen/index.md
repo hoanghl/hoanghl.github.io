@@ -1,7 +1,7 @@
 +++
-title = "Ownership, pointer and reference"
+title = "Keycloak authentication"
 date = 2025-02-23
-description = " "
+description = "Notes on authentication flows and tokens in Keycloak"
 draft = false
 
 [taxonomies]
