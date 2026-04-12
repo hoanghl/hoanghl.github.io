@@ -11,7 +11,7 @@ tags = ["ml","recommender-system"]
 [extra]
 show_toc = true
 show_copyright = false
-show_comments = true
+show_comments = false
 show_shares = false
 show_date = true
 keywords = "data,machine-learning,recommender-system,loss-function"
