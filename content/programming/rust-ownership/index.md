@@ -11,7 +11,7 @@ tags = ["rust","programming"]
 [extra]
 show_toc = true
 show_copyright = false
-show_comments = true
+show_comments = false
 show_shares = false
 keywords = "programming,rust"
 +++
